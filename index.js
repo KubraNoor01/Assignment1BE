@@ -1,4 +1,5 @@
 const http = require('http');
+
 const books = [ 
     {name: 'Inheritance of Loss', author: 'Kiran Desai', genre: 'history', id: 1},
     {name: 'A Bad Woman\'s Story', author: 'Durdana Sumoro', genre: 'novel', id: 2},
@@ -6,6 +7,7 @@ const books = [
 ];
 
 const server = http.createServer((req, res) => {
+    // Create: Add a new book
     if (req.method === 'POST' && req.url === '/add') {
         const newBook = {
             name: "Middle in the East",
@@ -16,41 +18,37 @@ const server = http.createServer((req, res) => {
 
         books.push(newBook);
         res.end(JSON.stringify({ message: 'Book added successfully', books }));
-    } else {
-        res.end(JSON.stringify({ message: 'Route not found' }));
     }
 
-    if (req.method === 'GET' && req.url === '/retrive') {
-       
+    // Read: Retrieve the list of all books
+    if (req.method === 'GET' && req.url === '/retrieve') {
         res.end(JSON.stringify(books));
+    }
+
+    // Delete: Manually remove a book
+    if (req.method === 'GET' && req.url === '/delete') {
+        function deleteBookById(id) {
+            const updatedBooks = books.filter(book => book.id !== id);
+            return updatedBooks; 
+        }
+        const updatedBooks = deleteBookById(2); 
+        console.log(updatedBooks);
+        res.end(JSON.stringify({ message: 'Book deleted (manual process)', updatedBooks }));
     } else {
         res.end(JSON.stringify({ message: 'Route not found' }));
     }
+});
 
-//     if (req.method === 'PUT' && req.url === '/add') {
-//     const BookToFind=books.find(b=>b.id===2);
-//     if(!BookToFind){
+const port = 3000; 
+server.listen(port, () => {
+    console.log('listening the prt 3000');
+});
+
+// Uncomment this block if you want to implement the update functionality
+// if (req.method === 'PUT' && req.url === '/update') {
+//     const BookToFind = books.find(b => b.id === 2);
+//     if (!BookToFind) {
 //         return res.end("Book not found");
 //     }
-//     if(BookToFind){
-        
-//     }
+//     
 // }
-if (req.method === 'GET' && req.url === '/delete') {
-    function deleteBookById(id) {
-        const updatedBooks = books.filter(book => book.id !== id);
-        return updatedBooks; 
-    }
-    const updatedBooks = deleteBookById(2);
-    console.log(updatedBooks);
-
-} else {
-    res.end(JSON.stringify({ message: 'Route not found' }));
-}
-
-});
-
-const port = 350;
-server.listen(port, () => {
-    console.log(`Listening on port ${port}`);
-});
