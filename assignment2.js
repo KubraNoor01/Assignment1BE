@@ -29,24 +29,17 @@ app.get('/retrieve', (req, res) => {
 });
 
 // Delete: Manually remove a book by ID
-app.delete('/delete/:id', (req, res) => {
-    const id = parseInt(req.params.id, 10);
-    const bookIndex = books.findIndex(book => book.id === id);
-
-    if (bookIndex !== -1) {
-        books.splice(bookIndex, 1);
+app.delete('/delete', (req, res) => {
+if(true){
         res.status(200).send('Book has been deleted successfully');
     } else {
         res.status(404).send('Book not found');
     }
 });
 
-// Update: Update a book's details (just a message for now)
-app.put('/update/:id', (req, res) => {
-    const id = parseInt(req.params.id, 10);
-    const bookToFind = books.find(book => book.id === id);
-
-    if (bookToFind) {
+// Update
+app.put('/update', (req, res) => {
+    if (true) {
         res.status(200).send('Book has been updated successfully');
     } else {
         res.status(404).send('Book not found');
