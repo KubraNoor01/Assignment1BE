@@ -33,7 +33,7 @@ const server = http.createServer((req, res) => {
         }
         const updatedBooks = deleteBookById(2); 
         console.log(updatedBooks);
-        res.end(JSON.stringify({ message: 'Book deleted (manual process)', updatedBooks }));
+        res.end(JSON.stringify( updatedBooks ));
     } else {
         res.end(JSON.stringify({ message: 'Route not found' }));
     }
@@ -44,9 +44,8 @@ server.listen(port, () => {
     console.log('listening the prt 3000');
 });
 
-// Uncomment this block if you want to implement the update functionality
+
 // if (req.method === 'PUT' && req.url === '/update') {
-//     const BookToFind = books.find(b => b.id === 2);
 //     if (!BookToFind) {
 //         return res.end("Book not found");
 //     }
