@@ -23,6 +23,7 @@ const server = http.createServer((req, res) => {
     // Read: Retrieve the list of all books
     if (req.method === 'GET' && req.url === '/retrieve') {
         res.end(JSON.stringify(books));
+        console.log(req.query)
     }
 
     // Delete: Manually remove a book
